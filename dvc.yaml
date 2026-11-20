@@ -1,0 +1,32 @@
+
+stages:
+  collect:
+    cmd: python src/collect.py
+    deps:
+      - src/collect.py
+    outs:
+      - data/wine_raw.csv
+
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - src/preprocess.py
+      - data/wine_raw.csv
+    outs:
+      - data/wine_cleaned.csv
+
+  features:
+    cmd: python src/features.py
+    deps:
+      - src/features.py
+      - data/wine_cleaned.csv
+    outs:
+      - data/wine_features.csv
+
+  validate:
+    cmd: python src/validate.py
+    deps:
+      - src/validate.py
+      - data/wine_features.csv
+    outs:
+      - data/validation_report.txt
